@@ -3,97 +3,91 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Switch Envíos</title>
+<title>Switch Envíos Pro</title>
 <style>
   :root{
-    --bg:#06070b; --fg:#e8eefc; --sub:#94a3b8;
+    --fg:#e8eefc; --sub:#94a3b8;
     --primary:#4f8cff; --ok:#22c55e; --err:#ef4444;
     --border:rgba(255,255,255,.14);
   }
-  *{box-sizing:border-box}
+  *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%}
   body{
-    margin:0; color:var(--fg);
-    background:radial-gradient(1200px 900px at 10% 10%, #0a1020 0, #070a14 35%, var(--bg) 70%) fixed;
     font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
     display:grid; place-items:center;
+    color:var(--fg);
+    background: linear-gradient(-45deg, #0f172a, #1e3a8a, #4c1d95, #0f766e);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
   }
+  @keyframes gradientBG {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+  }
+
   .card{
     position:relative;
     width:min(520px, 92vw);
     padding:28px;
     border-radius:26px;
     border:1px solid var(--border);
-    background:rgba(255,255,255,.06);
-    backdrop-filter: blur(16px);
-    box-shadow: 0 18px 60px rgba(0,0,0,.5);
+    background:rgba(255,255,255,.08);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 18px 60px rgba(0,0,0,.6);
     display:flex; flex-direction:column; gap:24px;
+    animation: fadeIn 1s ease;
   }
-  .title{margin:0; font-weight:800; font-size:22px}
-  .sub{margin:0; color:var(--sub); font-size:14px}
-  .action{display:flex; align-items:center; gap:18px; cursor:pointer; user-select:none}
+  @keyframes fadeIn {
+    from{opacity:0; transform:translateY(20px)}
+    to{opacity:1; transform:translateY(0)}
+  }
+  .title{margin:0; font-weight:800; font-size:24px; text-align:center}
+  .sub{margin:0; color:var(--sub); font-size:15px; text-align:center}
+  .action{display:flex; align-items:center; gap:18px; cursor:pointer; user-select:none; justify-content:center}
 
-  /* Switch */
+  /* Switch Pro */
   .switch{
     --w: 120px; --h: 60px; --p: 8px;
-    position:relative;
-    width:var(--w);
-    height:var(--h);
-    border-radius:999px;
-    border:2px solid rgba(255,255,255,0.35);
+    position:relative; width:var(--w); height:var(--h);
+    border-radius:999px; border:2px solid rgba(255,255,255,0.35);
     background:linear-gradient(180deg, #d1d5db, #9ca3af);
-    box-shadow: inset 0 6px 12px rgba(0,0,0,.2);
-    transition: background .35s ease, box-shadow .35s ease, transform .08s ease;
+    box-shadow: inset 0 6px 12px rgba(0,0,0,.3);
+    transition: background .4s ease, box-shadow .4s ease, transform .08s ease;
     display:inline-block;
+    overflow:hidden;
   }
-  .switch:active{transform: scale(.98)}
+  .switch:active{transform: scale(.97)}
   .knob{
-    position:absolute;
-    top:var(--p);
-    left:var(--p);
-    width:calc(var(--h) - var(--p)*2);
-    height:calc(var(--h) - var(--p)*2);
-    border-radius:50%;
-    background: radial-gradient(circle at 30% 30%, #fff, #f3f4f6 60%, #e5e7eb);
-    box-shadow:
-      0 6px 12px rgba(0,0,0,.35),
-      0 0 0 2px rgba(255,255,255,0.8) inset;
+    position:absolute; top:var(--p); left:var(--p);
+    width:calc(var(--h) - var(--p)*2); height:calc(var(--h) - var(--p)*2);
+    border-radius:50%; background: radial-gradient(circle at 30% 30%, #fff, #f3f4f6 60%, #e5e7eb);
+    box-shadow:0 6px 12px rgba(0,0,0,.35),0 0 0 2px rgba(255,255,255,0.8) inset;
     transition: transform .35s cubic-bezier(.2,.8,.25,1), box-shadow .35s ease;
-  }
-  .glow{
-    position:absolute;
-    inset:-8px;
-    border-radius:999px;
-    filter:blur(14px);
-    opacity:.3;
-    background: radial-gradient(80% 100% at 50% 50%, rgba(255,255,255,0.4), transparent 70%);
-    transition: opacity .35s ease, background .35s ease;
-    pointer-events:none;
+    z-index:2;
   }
   .switch[data-on="true"]{
-    background: linear-gradient(180deg, #4f8cff, #2563eb);
-    border-color: rgba(79,140,255,0.8);
-    box-shadow:
-      inset 0 6px 12px rgba(0,0,0,.25),
-      0 0 12px rgba(79,140,255,0.6);
+    background: linear-gradient(90deg, #2563eb, #7c3aed, #0ea5e9);
+    background-size:200% 200%;
+    animation: glowMove 3s ease infinite;
+    border-color: rgba(79,140,255,0.9);
+    box-shadow: inset 0 6px 12px rgba(0,0,0,.25),0 0 20px rgba(79,140,255,.7);
   }
   .switch[data-on="true"] .knob{
     transform: translateX(calc(var(--w) - var(--h)));
-    box-shadow:
-      0 6px 14px rgba(79,140,255,.5),
-      0 0 0 2px rgba(255,255,255,.9) inset;
+    box-shadow:0 6px 14px rgba(79,140,255,.7),0 0 0 2px rgba(255,255,255,.9) inset;
   }
-  .switch[data-on="true"] .glow{
-    opacity:.8;
-    background: radial-gradient(80% 100% at 50% 50%, rgba(79,140,255,0.6), transparent 70%);
+  @keyframes glowMove {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
   }
 
-  .chip{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; border:1px solid var(--border); background:rgba(255,255,255,.06); font-weight:600}
+  .chip{display:inline-flex; align-items:center; gap:8px; padding:6px 12px; border-radius:999px; border:1px solid var(--border); background:rgba(255,255,255,.08); font-weight:600}
   .dot{width:9px; height:9px; border-radius:50%}
   .on .dot{background:var(--ok)}
   .off .dot{background:#64748b}
   .err .dot{background:var(--err)}
-  .hint{color:var(--sub); font-size:13px}
   .toast{position:fixed; left:50%; bottom:24px; transform:translate(-50%,20px); opacity:0; padding:10px 14px; border-radius:12px; border:1px solid var(--border); background:#0b1326; color:var(--fg); box-shadow: 0 12px 30px rgba(0,0,0,.5); transition:opacity .25s ease, transform .25s ease}
   .toast.show{opacity:1; transform:translate(-50%,0)}
   .toast.ok{border-color:var(--ok)}
@@ -110,27 +104,30 @@
   <!-- FITNESS -->
   <div class="action" id="rowFitness">
     <button id="switchFitness" class="switch" role="switch" aria-checked="false" data-on="false">
-      <span class="knob"></span><span class="glow"></span>
+      <span class="knob"></span>
     </button>
-    <span id="badgeFitness" class="chip off"><span class="dot"></span><span id="txtFitness">Prende envíos fitness (Apagado)</span></span>
+    <span id="badgeFitness" class="chip off"><span class="dot"></span><span id="txtFitness">Fitness (Apagado)</span></span>
   </div>
 
   <!-- ROPA -->
   <div class="action" id="rowRopa">
     <button id="switchRopa" class="switch" role="switch" aria-checked="false" data-on="false">
-      <span class="knob"></span><span class="glow"></span>
+      <span class="knob"></span>
     </button>
-    <span id="badgeRopa" class="chip off"><span class="dot"></span><span id="txtRopa">Prende envíos ropa (Apagado)</span></span>
+    <span id="badgeRopa" class="chip off"><span class="dot"></span><span id="txtRopa">Ropa (Apagado)</span></span>
   </div>
 </article>
 
 <div id="toast" class="toast"></div>
 
 <script>
-const URL_ON_FITNESS  = ""; // tu link ON fitness
-const URL_OFF_FITNESS = ""; // tu link OFF fitness
-const URL_ON_ROPA  = ""; // tu link ON ropa
-const URL_OFF_ROPA = ""; // tu link OFF ropa
+// URLs de Fitness
+const URL_ON_FITNESS  = "https://n8n-n8n.uqdje4.easypanel.host/api/v1/workflows/NIK3YD3ouS4dM1eH/activate";
+const URL_OFF_FITNESS = "https://n8n-n8n.uqdje4.easypanel.host/api/v1/workflows/NIK3YD3ouS4dM1eH/deactivate";
+
+// URLs de Ropa
+const URL_ON_ROPA  = "https://n8n-n8n.uqdje4.easypanel.host/api/v1/workflows/dQiUa02nQWMGx9Vj/activate";
+const URL_OFF_ROPA = "https://n8n-n8n.uqdje4.easypanel.host/api/v1/workflows/dQiUa02nQWMGx9Vj/deactivate";
 
 function setupSwitch(prefix, urlOn, urlOff){
   const row = document.getElementById("row"+prefix);
@@ -144,7 +141,7 @@ function setupSwitch(prefix, urlOn, urlOff){
     sw.dataset.on = on ? 'true':'false';
     sw.setAttribute('aria-checked', String(on));
     badge.className = `chip ${on ? 'on':'off'}`;
-    txt.textContent = (on ? "Prende envíos "+prefix.toLowerCase()+" (Prendido)" : "Prende envíos "+prefix.toLowerCase()+" (Apagado)");
+    txt.textContent = prefix+" ("+(on ? "Prendido" : "Apagado")+")";
   }
 
   async function toggle(){
@@ -153,7 +150,7 @@ function setupSwitch(prefix, urlOn, urlOff){
     const url = next ? urlOn : urlOff;
     const ok = await fire(url).catch(()=>false);
     if(ok){
-      toast((next ? "Activado ✔":"Desactivado ✔"),'ok');
+      toast(prefix+" "+(next ? "Activado ✔":"Desactivado ✔"),'ok');
     }else{
       setVisual(!next);
       toast("Error ❌",'err');
@@ -172,11 +169,10 @@ function toast(msg,type='ok'){
   setTimeout(()=> el.classList.remove('show'),1700);
 }
 function fire(url){
-  if(!url) return Promise.resolve(true); // si no hay link, simula ok
-  return fetch(url,{method:'GET',mode:'no-cors'}).then(()=>true);
+  return fetch(url,{method:'POST'}).then(()=>true);
 }
 
-// Inicializar
+// Inicializar switches
 setupSwitch("Fitness", URL_ON_FITNESS, URL_OFF_FITNESS);
 setupSwitch("Ropa", URL_ON_ROPA, URL_OFF_ROPA);
 </script>
